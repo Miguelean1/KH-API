@@ -1,0 +1,16 @@
+html
+  head
+    title Magic list
+  body
+    h1 Magic list
+    a(href="/new-magic") New magic
+    br
+    br
+    if magics.length > 0
+      ul
+        each magic in magics
+          li #{magic.name} - Element: #{magic.element}, MP cost: #{magic.mpCost}, Unlocked: #{magic.isUnlocked ? 'Yes' : 'No'}
+    else
+      p There are no magics
+    br
+    a(href="/") Back to home

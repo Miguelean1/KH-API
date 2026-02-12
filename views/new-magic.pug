@@ -1,0 +1,39 @@
+html
+  head
+    title New Magic
+  body
+    h1 New Magic
+    form(action="/new-magic" method="POST")
+      label(for="name") Name:
+      br
+      input(type="text" name="name" required)
+      br
+      br
+      
+      label(for="element") Element:
+      br
+      select(name="element" required)
+        option(value="Fire") Fire
+        option(value="Ice") Ice
+        option(value="Thunder") Thunder
+        option(value="Cure") Cure
+        option(value="Gravity") Gravity
+        option(value="Aero") Aero
+      br
+      br
+      
+      label(for="mpCost") MP cost:
+      br
+      input(type="number" name="mpCost" value="10" min="5" max="100")
+      br
+      br
+      
+      label(for="isUnlocked") Is unlocked:
+      input(type="checkbox" name="isUnlocked")
+      br
+      br
+      
+      button(type="submit") Create
+      br
+      br
+    a(href="/list-magics") Back to list

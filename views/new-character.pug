@@ -1,0 +1,49 @@
+html
+  head
+    title New character
+  body
+    h1 New character
+    form(action="/new-character" method="POST")
+      label(for="name") Name:
+      br
+      input(type="text" name="name" required)
+      br
+      br
+      
+      label(for="weapon") Weapon:
+      br
+      input(type="text" name="weapon" value="Kingdom Key")
+      br
+      br
+      
+      label(for="role") Role:
+      br
+      select(name="role" required)
+        option(value="Keyblade Wielder") Keyblade wielder
+        option(value="Mage") Mage
+        option(value="Warrior") Warrior
+        option(value="Support") Support
+      br
+      br
+      
+      label(for="level") Level:
+      br
+      input(type="number" name="level" value="1" min="1" max="100")
+      br
+      br
+      
+      label(for="hp") HP:
+      br
+      input(type="number" name="hp" value="100" min="10" required)
+      br
+      br
+      
+      label(for="isAlive") Is Alive:
+      input(type="checkbox" name="isAlive" checked)
+      br
+      br
+      
+      button(type="submit") Create
+      br
+      br
+    a(href="/list-characters") Back to list

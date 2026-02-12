@@ -1,0 +1,36 @@
+html
+  head
+    title New Level
+  body
+    h1 New Level
+    form(action="/new-level" method="POST")
+      label(for="worldName") World Name:
+      br
+      input(type="text" name="worldName" required)
+      br
+      br
+      
+      label(for="character") Character:
+      br
+      select(name="character" required)
+        option(value="") Select a character
+        each char in characters
+          option(value=char._id)= char.name
+      br
+      br
+      
+      label(for="starsCollected") Stars collected:
+      br
+      input(type="number" name="starsCollected" value="0" min="0" max="99")
+      br
+      br
+      
+      label(for="isCompleted") Is completed:
+      input(type="checkbox" name="isCompleted")
+      br
+      br
+      
+      button(type="submit") Create
+      br
+      br
+    a(href="/list-levels") Back to list

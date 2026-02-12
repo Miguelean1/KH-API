@@ -1,0 +1,16 @@
+html
+  head
+    title Character list
+  body
+    h1 Character list
+    a(href="/new-character") New character
+    br
+    br
+    if characters.length > 0
+      ul
+        each character in characters
+          li #{character.name} - #{character.role}, weapon: #{character.weapon}, level: #{character.level}, HP: #{character.hp}
+    else
+      p There are no characters
+    br
+    a(href="/") Back to home

@@ -1,0 +1,16 @@
+html
+  head
+    title Level list
+  body
+    h1 Level list
+    a(href="/new-level") New level
+    br
+    br
+    if levels.length > 0
+      ul
+        each level in levels
+          li #{level.worldName} - Character: #{level.character ? level.character.name : 'N/A'}, Stars: #{level.starsCollected}, Completed: #{level.isCompleted ? 'Yes' : 'No'}
+    else
+      p There are no levels
+    br
+    a(href="/") Back to home
