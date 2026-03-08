@@ -1,0 +1,132 @@
+
+info:
+  title: Kingdom Hearts API - Characters
+  description: Documentación de la API para las operaciones CRUD del modelo Character.
+  version: 1.0.0
+  contact:
+    name: DAW enjoyer
+    email: fake-email@google.com
+  servers:
+    url: http://localhost:8080/api
+
+
+components:
+  schemas:
+    Character:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID generado 
+        name:
+          type: string
+          description: Nombre del personaje
+        weapon:
+          type: string
+          description: Arma que utiliza el personaje
+        role:
+          type: string
+          description: Rol del personaje en el juego
+        level:
+          type: integer
+          description: Nivel actual del personaje
+
+
+    CharacterInput:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        weapon:
+          type: string
+        role:
+          type: string
+        level:
+          type: integer
+
+
+
+paths:
+  /characters:
+    get:
+      summary: Obtener todos los personajes
+      description: Devuelve una lista con todos los personajes registrados en la base de datos.
+      responses:
+        '200':
+          description: Lista de personajes obtenida con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Character'
+        '500':
+          description: Error interno del servidor
+
+    post:
+      summary: Crear un nuevo personaje
+      description: Añade un nuevo personaje a la base de datos.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CharacterInput'
+      responses:
+        '201':
+          description: Personaje creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Character'
+        '400':
+          description: Error de validación en los datos enviados o body vacío
+
+  /characters/{id}:
+    get:
+      summary: Obtener un personaje por su ID
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        description: ID de MongoDB del personaje
+      responses:
+        '200':
+          description: Personaje encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Character'
+        '404':
+          description: Personaje no encontrado
+
+    put:
+      summary: Actualizar un personaje existente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CharacterInput'
+      responses:
+        '204':
+          description: Personaje actualizado correctamente 
+        '400':
+          description: Body vacío o datos inválidos
+        '404':
+          description: Personaje no encontrado
+
+    delete:
+      summary: Eliminar un personaje
+      responses:
+        '204':
+          description: Personaje eliminado exitosamente 
+        '404':
+          description: Personaje no encontrado
+        '500':
+          description: Error interno del servidor
+

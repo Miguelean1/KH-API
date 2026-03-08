@@ -1,5 +1,4 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const app = express();
 const port = 8080;
 
@@ -12,12 +11,6 @@ app.set("view engine", "pug");
 app.set("views", "./views");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-
-mongoose
-  .connect("mongodb://localhost:27017/kingdomhearts")
-  .then(() => console.log("✅ Conectado a MongoDB"))
-  .catch((err) => console.error("❌ Error de conexión:", err));
 
 
 app.get("/", (req, res) => {
@@ -312,6 +305,4 @@ app.delete("/api/levels/:id", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`🚀 Servidor escuchando en http://localhost:${port}`);
-});
+module.exports = app;
