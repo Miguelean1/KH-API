@@ -1,16 +1,20 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const port = 8080;
 
-
 const Character = require("./models/Character");
 const Magic = require("./models/Magic");
 const Level = require("./models/Level");
+const authRoutes = require("./routes/auth");
+const { verifyToken, verifyRole } = require("./middleware/auth");
 
 app.set("view engine", "pug");
 app.set("views", "./views");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use("/auth", authRoutes);
 
 
 app.get("/", (req, res) => {
@@ -112,7 +116,7 @@ app.post("/new-level", async (req, res) => {
 });
 
 
-app.get("/api/characters", async (req, res) => {
+app.get("/api/characters", verifyToken, async (req, res) => {
   try {
     const characters = await Character.find();
     res.json(characters);
@@ -133,7 +137,7 @@ app.get("/api/characters/:id", async (req, res) => {
   }
 });
 
-app.post("/api/characters", async (req, res) => {
+app.post("/api/characters", verifyToken, async (req, res) => {
   try {
     if (!req.body || Object.keys(req.body).length === 0) {
       return res.status(400).json({ error: "Request body is empty" });
@@ -164,7 +168,7 @@ app.put("/api/characters/:id", async (req, res) => {
   }
 });
 
-app.delete("/api/characters/:id", async (req, res) => {
+app.delete("/api/characters/:id", verifyToken, verifyRole("admin"), async (req, res) => {
   try {
     const character = await Character.findByIdAndDelete(req.params.id);
     if (!character) {
@@ -229,7 +233,7 @@ app.put("/api/magics/:id", async (req, res) => {
   }
 });
 
-app.delete("/api/magics/:id", async (req, res) => {
+app.delete("/api/magics/:id", verifyToken, verifyRole("admin"), async (req, res) => {
   try {
     const magic = await Magic.findByIdAndDelete(req.params.id);
     if (!magic) {
