@@ -106,6 +106,13 @@ paths:
 
     put:
       summary: Actualizar un personaje existente
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        description: ID del personaje
       requestBody:
         required: true
         content:
@@ -122,6 +129,13 @@ paths:
 
     delete:
       summary: Eliminar un personaje
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        description: ID  del personaje
       responses:
         '204':
           description: Personaje eliminado exitosamente 
